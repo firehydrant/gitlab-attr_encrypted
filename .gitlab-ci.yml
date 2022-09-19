@@ -1,3 +1,8 @@
+default:
+  tags:
+    - gitlab-org
+  image: "ruby:${RUBY_VERSION}"
+
 include:
   - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
 
@@ -14,6 +19,18 @@ workflow:
     - if: '$CI_COMMIT_BRANCH =~ /^[\d-]+-stable(-ee)?$/'
     - if: '$CI_COMMIT_BRANCH =~ /^security\//'
 
-default:
-  tags:
-    - gitlab-org
+rspec:
+  cache:
+    paths:
+      - vendor/ruby
+  before_script:
+    - ruby -v # Print out ruby version for debugging
+    - gem install bundler --no-document # Bundler is not installed with the image
+    - bundle config set --local path 'vendor'
+    - bundle install -j $(nproc)
+  script:
+    - bundle exec rake test
+
+  parallel:
+    matrix:
+      - RUBY_VERSION: ["2.7", "3.0"]
