@@ -5,6 +5,8 @@ default:
 
 include:
   - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
+  - project: 'gitlab-org/quality/pipeline-common'
+    file: '/ci/gem-release.yml'
 
 # Or if the project needs to support stable/security branches, use the following instead
 workflow:

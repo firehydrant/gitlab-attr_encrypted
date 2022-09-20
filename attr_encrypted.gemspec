@@ -7,7 +7,7 @@ require 'attr_encrypted/version'
 require 'date'
 
 Gem::Specification.new do |s|
-  s.name    = 'attr_encrypted'
+  s.name    = 'gitlab-attr_encrypted'
   s.version = AttrEncrypted::Version.string
   s.date    = Date.today
 
