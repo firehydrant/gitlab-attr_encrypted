@@ -11,12 +11,13 @@ Gem::Specification.new do |s|
   s.version = AttrEncrypted::Version.string
   s.date    = Date.today
 
-  s.summary     = 'Encrypt and decrypt attributes'
-  s.description = 'Generates attr_accessors that encrypt and decrypt attributes transparently'
+  s.summary     = 'GitLab fork of attr_encrypted'
+  s.description = "Generates attr_accessors that encrypt and decrypt attributes transparently.\n\n
+Forked from https://github.com/attr-encrypted/attr_encrypted."
 
   s.authors   = ['Sean Huber', 'S. Brent Faulkner', 'William Monk', 'Stephen Aghaulor']
   s.email    = ['seah@shuber.io', 'sbfaulkner@gmail.com', 'billy.monk@gmail.com', 'saghaulor@gmail.com']
-  s.homepage = 'http://github.com/attr-encrypted/attr_encrypted'
+  s.homepage = 'https://gitlab.com/gitlab-org/ruby/gems/attr_encrypted'
   s.license = 'MIT'
 
   s.has_rdoc = false
@@ -27,7 +28,7 @@ Gem::Specification.new do |s|
   s.files      = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- test/*`.split("\n")
 
-  s.required_ruby_version = '>= 2.0.0'
+  s.required_ruby_version = '>= 2.7.0'
 
   s.add_dependency('encryptor', ['~> 3.0.0'])
   # support for testing with specific active record version
