@@ -12,9 +12,12 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
   ]
 )
 
-SimpleCov.start do
-  add_filter 'test'
-end
+# Disabling for now since there are issues with Ruby 3 support.
+# See https://gitlab.com/gitlab-org/ruby/gems/attr_encrypted/-/merge_requests/1
+#
+# SimpleCov.start do
+#   add_filter 'test'
+# end
 
 CodeClimate::TestReporter.start
 
