@@ -62,7 +62,7 @@ if defined?(ActiveRecord::Base)
 
             if ::ActiveRecord::VERSION::STRING >= "4.1"
               define_method("#{attr}_changed?") do |options = {}|
-                attribute_changed?(attr, options)
+                attribute_changed?(attr, **options)
               end
             else
               define_method("#{attr}_changed?") do
@@ -97,8 +97,11 @@ if defined?(ActiveRecord::Base)
             end
           end
 
+          # Prevent attr_encrypted from defining virtual accessors for encryption
+          # data when the code and schema are out of sync. See this issue for more
+          # details: https://github.com/attr-encrypted/attr_encrypted/issues/332
           def attribute_instance_methods_as_symbols_available?
-            connected? && table_exists?
+            false
           end
 
           # Allows you to use dynamic methods like <tt>find_by_email</tt> or <tt>scoped_by_email</tt> for

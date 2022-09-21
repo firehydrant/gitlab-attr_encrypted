@@ -1,0 +1,24 @@
+default:
+  tags:
+    - gitlab-org
+  image: "ruby:${RUBY_VERSION}"
+
+include:
+  - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
+  - project: 'gitlab-org/quality/pipeline-common'
+    file: '/ci/gem-release.yml'
+
+rspec:
+  cache:
+    paths:
+      - vendor/ruby
+  before_script:
+    - ruby -v # Print out ruby version for debugging
+    - gem install bundler --no-document # Bundler is not installed with the image
+    - bundle config set --local path 'vendor'
+    - ACTIVERECORD=6.1 bundle install -j $(nproc)
+  script:
+    - bundle exec rake test
+  parallel:
+    matrix:
+      - RUBY_VERSION: ["2.7", "3.0"]
